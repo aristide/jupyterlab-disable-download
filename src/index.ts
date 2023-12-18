@@ -10,7 +10,9 @@ const plugin: JupyterFrontEndPlugin<void> = {
   id: 'jupyterlab-disable-download:plugin',
   autoStart: true,
   activate: (app: JupyterFrontEnd) => {
-    console.log('JupyterLab extension jupyterlab-disable-download is activated!');
+    console.log(
+      'JupyterLab extension jupyterlab-disable-download is activated!'
+    );
   }
 };
 

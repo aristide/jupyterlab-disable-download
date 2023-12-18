@@ -36,8 +36,8 @@ The `jlpm` command is JupyterLab's pinned version of
 ```bash
 # Clone the repo to your local environment
 # Change directory to the jupyterlab-disable-download directory
-# create a virtual environment 
-# install jupyterlab 
+# create a virtual environment
+# install jupyterlab
 pip install jupyterlab==3.6.6
 # Install package in development mode
 pip install -e "."
