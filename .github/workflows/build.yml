@@ -35,6 +35,7 @@ jobs:
       run: |
         set -eux
         python -m pip install -e "."
+        jupyter labextension develop . --overwrite
         python -m pip install .[test]
 
         jupyter labextension list
