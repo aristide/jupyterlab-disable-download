@@ -3,6 +3,8 @@
 [![Github Actions Status](https://github.com/aristide/jupyterlab-disable-download/workflows/Build/badge.svg)](https://github.com/aristide/jupyterlab-disable-download/actions/workflows/build.yml)[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/aristide/jupyterlab-disable-download/main?urlpath=lab)
 disable data download from notebook
 
+Generate using: [Cookiecutter](https://github.com/jupyterlab/extension-cookiecutter-ts)
+
 ## Requirements
 
 - JupyterLab >= 3.0
