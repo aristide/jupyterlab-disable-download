@@ -7,6 +7,12 @@ name = "jupyterlab-disable-download"
 readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">=3.7"
+authors = [
+  {name = "Aristide T.M", email = "mendoo.aristide@gmail.com"}
+]
+maintainers = [
+  {name = "Aristide T.M", email = "mendoo.aristide@gmail.com"}
+]
 classifiers = [
     "Framework :: Jupyter",
     "Framework :: Jupyter :: JupyterLab",
