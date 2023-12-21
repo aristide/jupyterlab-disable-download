@@ -56,34 +56,34 @@ jobs:
         path: dist/jupyterlab_disable_download*
         if-no-files-found: error
 
-  # test_isolated:
-  #   needs: build
-  #   runs-on: ubuntu-latest
+  test_isolated:
+    needs: build
+    runs-on: ubuntu-latest
 
-  #   steps:
-  #   - name: Checkout
-  #     uses: actions/checkout@v3
-  #   - name: Install Python
-  #     uses: actions/setup-python@v4
-  #     with:
-  #       python-version: '3.9'
-  #       architecture: 'x64'
-  #   - uses: actions/download-artifact@v3
-  #     with:
-  #       name: extension-artifacts
-  #   - name: Install and Test
-  #     run: |
-  #       set -eux
-  #       # Remove NodeJS, twice to take care of system and locally installed node versions.
-  #       sudo rm -rf $(which node)
-  #       sudo rm -rf $(which node)
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Install Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+        architecture: 'x64'
+    - uses: actions/download-artifact@v3
+      with:
+        name: extension-artifacts
+    - name: Install and Test
+      run: |
+        set -eux
+        # Remove NodeJS, twice to take care of system and locally installed node versions.
+        sudo rm -rf $(which node)
+        sudo rm -rf $(which node)
 
-  #       pip install "jupyterlab-pygments==0.2.2" "jupyterlab==3.6.6" jupyterlab-disable-download*.whl
+        pip install "jupyterlab-pygments==0.2.2" "jupyterlab==3.6.6" jupyterlab-disable-download*.whl
 
 
-  #       jupyter labextension list
-  #       jupyter labextension list 2>&1 | grep -ie "jupyterlab-disable-download.*ok"
-  #       python -m jupyterlab.browser_check --no-chrome-test
+        jupyter labextension list
+        jupyter labextension list 2>&1 | grep -ie "jupyterlab-disable-download.*ok"
+        python -m jupyterlab.browser_check --no-chrome-test
 
   # integration-tests:
   #   name: Integration tests
