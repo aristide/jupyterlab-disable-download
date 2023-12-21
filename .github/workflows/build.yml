@@ -47,6 +47,8 @@ jobs:
 
         pip install build
         python -m build
+        ls -al 
+        ls -al dist/
         pip uninstall -y "jupyterlab-disable-download" jupyterlab
 
     - name: Upload extension packages
