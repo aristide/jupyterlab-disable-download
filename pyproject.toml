@@ -39,6 +39,7 @@ exclude = [".github", "binder"]
 [tool.hatch.build.targets.wheel.shared-data]
 "jupyterlab-disable-download/labextension" = "share/jupyter/labextensions/jupyterlab-disable-download"
 "install.json" = "share/jupyter/labextensions/jupyterlab-disable-download/install.json"
+"package.json" = "share/jupyter/labextensions/jupyterlab-disable-download/package.json"
 
 [tool.hatch.build.hooks.version]
 path = "jupyterlab-disable-download/_version.py"
