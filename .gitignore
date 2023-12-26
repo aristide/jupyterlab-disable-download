@@ -24,6 +24,7 @@ ui-tests/playwright-report/
 __pycache__/
 *.py[cod]
 *$py.class
+*.ipynb
 
 # C extensions
 *.so
