@@ -8,7 +8,7 @@ on:
         required: false
       branch:
         description: "The branch to target"
-        required: "main"
+        required: false
       post_version_spec:
         description: "Post Version Specifier"
         required: false
