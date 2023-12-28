@@ -7,7 +7,7 @@ Generate using: [Cookiecutter](https://github.com/jupyterlab/extension-cookiecut
 
 ## Requirements
 
-- JupyterLab >= 3.0
+-   JupyterLab >= 3.0
 
 ## Install
 
