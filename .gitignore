@@ -26,6 +26,9 @@ __pycache__/
 *$py.class
 *.ipynb
 
+### Nodejs ###
+.npmrc
+
 # C extensions
 *.so
 

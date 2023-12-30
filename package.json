@@ -1,5 +1,5 @@
 {
-    "name": "jupyterlab-disable-download",
+    "name": "@aristogrambel/jupyterlab-disable-download",
     "version": "0.1.5",
     "description": "disable data download from notebook",
     "keywords": [
