@@ -29,10 +29,10 @@ on:
 jobs:
   full_release:
     runs-on: ubuntu-latest
-    permissions:
-      # This is useful if you want to use PyPI trusted publisher
-      # and NPM provenance
-      id-token: write
+    # permissions:
+    #   # This is useful if you want to use PyPI trusted publisher
+    #   # and NPM provenance
+    #   id-token: write
     steps:
       - uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
 
