@@ -9,6 +9,7 @@ namespace CommandIDs {
     export const downloadFile = 'filebrowser:download';
     export const downloadDoc = 'docmanager:download';
     export const exportNotebook = 'notebook:export-to-format';
+    export const downloadLink = 'filebrowser:copy-download-link';
 }
 
 interface IMenuCommands {
@@ -26,7 +27,8 @@ const plugin: JupyterFrontEndPlugin<void> = {
                 CommandIDs.copyToClipboard,
                 CommandIDs.downloadFile,
                 CommandIDs.downloadDoc,
-                CommandIDs.exportNotebook
+                CommandIDs.exportNotebook,
+                CommandIDs.downloadLink
             ];
             const commands = <IMenuCommands>(
                 (<CommandRegistry | IMenuCommands>app.commands)
