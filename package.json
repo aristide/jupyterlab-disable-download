@@ -1,6 +1,6 @@
 {
     "name": "jupyterlab-disable-download",
-    "version": "0.1.6",
+    "version": "0.1.7",
     "description": "disable data download from notebook",
     "keywords": [
         "jupyter",
