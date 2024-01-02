@@ -14,7 +14,8 @@ Generate using: [Cookiecutter](https://github.com/jupyterlab/extension-cookiecut
 To install the extension, execute:
 
 ```bash
-pip install jupyterlab-disable-download
+# from git
+pip install git+https://github.com/aristide/jupyterlab-disable-download.git#egg=jupyterlab-disable-download
 ```
 
 ## Uninstall
