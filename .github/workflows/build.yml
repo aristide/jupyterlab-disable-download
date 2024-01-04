@@ -38,7 +38,7 @@ jobs:
         python -m pip install .[test]
 
         jupyter labextension list
-        jupyter labextension list 2>&1 | grep -ie "jupyterlab-disable-download.*ok"
+        jupyter labextension list 2>&1 | grep -ie "*jupyterlab-disable-download.*ok"
         python -m jupyterlab.browser_check
 
     - name: Package the extension
@@ -93,7 +93,7 @@ jobs:
         pip install "jupyterlab-pygments==0.2.2" "jupyterlab==3.6.6" jupyterlab_disable_download*.whl
 
         jupyter labextension list
-        jupyter labextension list 2>&1 | grep -ie "jupyterlab-disable-download.*ok"
+        jupyter labextension list 2>&1 | grep -ie "*jupyterlab-disable-download.*ok"
         python -m jupyterlab.browser_check --no-chrome-test
 
   integration-tests:
