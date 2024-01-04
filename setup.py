@@ -29,7 +29,9 @@ package_data_spec = {
     name: ["*"],
 }
 
-labext_name = "jupyterlab-disable-download"
+org = "@aristogrambel/"
+
+labext_name = f"{org}jupyterlab-disable-download"
 
 data_files_spec = [
     ("share/jupyter/labextensions/%s" % labext_name, str(lab_path), "**"),
