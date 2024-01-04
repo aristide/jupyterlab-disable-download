@@ -7,6 +7,7 @@ on:
         required: false
 jobs:
   full-release:
+    name: Full release
     runs-on: ubuntu-latest
     # permissions:
     #   # This is useful if you want to use PyPI trusted publisher

@@ -8,6 +8,7 @@ on:
 
 jobs:
   build:
+    name: Build
     runs-on: ubuntu-latest
 
     steps:
@@ -69,6 +70,7 @@ jobs:
         if-no-files-found: error
 
   test-isolated:
+    name: Test isolated
     needs: build
     runs-on: ubuntu-latest
 
