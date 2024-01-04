@@ -6,7 +6,7 @@ on:
         description: "The tag to target"
         required: false
 jobs:
-  full_release:
+  full-release:
     runs-on: ubuntu-latest
     # permissions:
     #   # This is useful if you want to use PyPI trusted publisher

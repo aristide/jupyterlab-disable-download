@@ -68,7 +68,7 @@ jobs:
         path: dist/jupyterlab_disable_download*
         if-no-files-found: error
 
-  test_isolated:
+  test-isolated:
     needs: build
     runs-on: ubuntu-latest
 
@@ -98,7 +98,7 @@ jobs:
 
   integration-tests:
     name: Integration tests
-    needs: test_isolated
+    needs: test-isolated
     runs-on: ubuntu-latest
 
     env:
