@@ -2,29 +2,8 @@ name: "Release"
 on:
   workflow_dispatch:
     inputs:
-      version_spec:
-        description: "New Version Specifier"
-        default: "next"
-        required: false
-      branch:
-        description: "The branch to target"
-        required: false
-      post_version_spec:
-        description: "Post Version Specifier"
-        required: false
-      # silent:
-      #   description: "Set a placeholder in the changelog and don't publish the release."
-      #   required: false
-      #   type: boolean
-      since:
-        description: "Use PRs with activity since this date or git reference"
-        required: false
-      since_last_stable:
-        description: "Use PRs with activity since the last stable git tag"
-        required: false
-        type: boolean
-      steps_to_skip:
-        description: "Comma separated list of steps to skip during Populate Release"
+      version:
+        description: "The tag to target"
         required: false
 jobs:
   full_release:
@@ -34,48 +13,26 @@ jobs:
     #   # and NPM provenance
     #   id-token: write
     steps:
-      - uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
+      - uses: actions/checkout@v4
 
-      - name: Prep Release
-        id: prep-release
-        uses: jupyter-server/jupyter_releaser/.github/actions/prep-release@v2
+      - uses: actions/setup-node@v3
         with:
-          token: ${{ secrets.ADMIN_GITHUB_TOKEN }}
-          version_spec: ${{ github.event.inputs.version_spec }}
-          post_version_spec: ${{ github.event.inputs.post_version_spec }}
-          branch: ${{ github.event.inputs.branch }}
-          # silent: ${{ github.event.inputs.silent }}
-          since: ${{ github.event.inputs.since }}
-          since_last_stable: ${{ github.event.inputs.since_last_stable }}
+          node-version: "18"
+          ref: ref/tags/${{ inputs.version }}
 
-      - name: Populate Release
-        id: populate-release
-        uses: jupyter-server/jupyter_releaser/.github/actions/populate-release@v2
+      - name: Download build artifacts
+        uses: actions/download-artifact@v2
+
+      - run: yarn
+
+      - name: Publish a Python distribution to PyPI
+        uses: pypa/gh-action-pypi-publish@master
         with:
-          token: ${{ secrets.ADMIN_GITHUB_TOKEN }}
-          branch: ${{ github.event.inputs.branch }}
-          release_url: ${{ steps.prep-release.outputs.release_url }}
-          steps_to_skip: ${{ github.event.inputs.steps_to_skip }}
+          user: __token__
+          password: ${{ secrets.PYPI_TOKEN }}
 
-      - name: Finalize Release
-        id: finalize-release
-        env:
-          # The following are needed if you use legacy PyPI set up
-          PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        uses: jupyter-server/jupyter_releaser/.github/actions/finalize-release@v2
+      - name: Publish labextension NPM
+        uses: JS-DevTools/npm-publish@v1
         with:
-          token: ${{ secrets.ADMIN_GITHUB_TOKEN }}
-          release_url: ${{ steps.populate-release.outputs.release_url }}
-
-      - name: "** Next Step **"
-        if: ${{ success() }}
-        run: |
-          echo "Verify the final release"
-          echo ${{ steps.finalize-release.outputs.release_url }}
-
-      - name: "** Failure Message **"
-        if: ${{ failure() }}
-        run: |
-          echo "Failed to Publish the Draft Release Url:"
-          echo ${{ steps.populate-release.outputs.release_url }}
+          token: ${{ secrets.NPM_TOKEN }}
+          skip_existing: true
