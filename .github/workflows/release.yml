@@ -49,13 +49,6 @@ jobs:
         path: dist
         retention-days: 5
 
-    - name: upload npm package
-      uses: actions/upload-artifact@v3
-      with:
-        name: package
-        path: dist/jupyterlab-disable-download.tar.gz
-        retention-days: 5
-
     - name: upload typescript build artifacts
       uses: actions/upload-artifact@v3
       with:
@@ -81,9 +74,6 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: dist
-
-      - name: Uzip dist folder
-        run: unzip dist.zip -d dist/
 
       - name: List artifacts 
         run: ls -R
