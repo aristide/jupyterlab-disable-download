@@ -82,13 +82,8 @@ jobs:
         with:
           name: dist
 
-      - name: Display structure of downloaded dist
-        uses: actions/download-artifact@v3
-        with:
-          name: dist
-
       - name: Uzip dist folder
-        run: zip -r dist.zip dist/
+        run: unzip dist.zip -d dist/
 
       - name: List artifacts 
         run: ls -R
