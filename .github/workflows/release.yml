@@ -47,6 +47,14 @@ jobs:
       with:
         name: dist
         path: dist
+        retention-days: 5
+
+    - name: upload typescript build artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: lib
+        path: lib
+        retention-days: 5
 
   publish-python:
     name: Publish python package
@@ -66,6 +74,17 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: dist
+
+      - name: Display structure of downloaded dist
+        uses: actions/download-artifact@v3
+        with:
+          name: dist
+
+      - name: Uzip dist folder
+        run: zip -r dist.zip dist/
+
+      - name: List artifacts 
+        run: ls -R
 
       - name: Publish a Python distribution to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
@@ -97,6 +116,12 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: dist
+
+      - name: Uzip dist folder
+        run: zip -r dist.zip dist/
+
+      - name: List artifacts 
+        run: ls -R
 
       - run: yarn
 
