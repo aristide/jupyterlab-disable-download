@@ -86,34 +86,33 @@ jobs:
           skip-existing: true
 
 
-  publish-npm:
-    name: Publish npm package
-    needs: publish-python
-    runs-on: ubuntu-latest
-    permissions:
-      id-token: write
+  # publish-npm:
+  #   name: Publish npm package
+  #   needs: publish-python
+  #   runs-on: ubuntu-latest
+  #   permissions:
+  #     id-token: write
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v3
 
-      - name: Base Setup
-        uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
+  #     - name: Base Setup
+  #       uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
 
-      - uses: actions/setup-node@v3
-        with:
-          node-version: "18"
-          ref: ref/tags/${{ inputs.version }}
+  #     - uses: actions/setup-node@v3
+  #       with:
+  #         node-version: "18"
+  #         ref: ref/tags/${{ inputs.version }}
 
-      - name: Download build artifacts
-        uses: actions/download-artifact@v3
+  #     - name: Download build artifacts
+  #       uses: actions/download-artifact@v3
 
-      - run: yarn
+  #     - run: yarn
 
-      - name: Publish labextension NPM
-        uses: JS-DevTools/npm-publish@v1
-        with:
-          token: ${{ secrets.NPM_TOKEN }}
-          access: "public"
-          strategy: "upgrade"
-          skip_existing: true
+  #     - name: Publish labextension NPM
+  #       uses: JS-DevTools/npm-publish@v1
+  #       with:
+  #         token: ${{ secrets.NPM_TOKEN }}
+  #         strategy: "upgrade"
+  #         skip_existing: true

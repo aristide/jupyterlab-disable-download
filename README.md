@@ -15,7 +15,7 @@ To install the extension, execute:
 
 ```bash
 # from git
-pip install git+https://github.com/aristide/jupyterlab-disable-download.git#egg=jupyterlab-disable-download
+pip install jupyterlab-disable-download
 ```
 
 ## Uninstall
