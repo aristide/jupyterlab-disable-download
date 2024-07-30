@@ -74,7 +74,7 @@ setup_args = dict(
     packages=setuptools.find_packages(),
     install_requires=[
         "jupyterlab-pygments==0.2.2",
-        "jupyterlab==3.6.6",
+        "jupyterlab>=3.4.7,<4.0.0",
     ],
     zip_safe=False,
     include_package_data=True,
