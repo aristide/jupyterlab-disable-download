@@ -1,0 +1,12 @@
+# Settings and configurations that are common for all containers
+services:
+
+  jupyter-download:
+    image: aristidetm/labextension-dev
+    volumes:
+      - ..:/workspace
+    working_dir: /workspace
+    ports:
+      - 0.0.0.0:8888:8888
+      - 0.0.0.0:9999:9999
+    command: sleep infinity

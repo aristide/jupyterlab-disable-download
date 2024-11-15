@@ -1,6 +1,6 @@
 {
-    "name": "@aristogrambel/jupyterlab-disable-download",
-    "version": "0.1.8",
+    "name": "jupyterlab-disable-download",
+    "version": "1.0.0",
     "description": "disable data download from notebook",
     "keywords": [
         "jupyter",
@@ -13,7 +13,7 @@
     },
     "license": "BSD-3-Clause",
     "author": {
-        "name": "Aristide",
+        "name": "Aristide Mendo'o",
         "email": "mendoo.aristide@gmail.com"
     },
     "files": [
@@ -77,8 +77,8 @@
         "stylelint-config-recommended": "^6.0.0",
         "stylelint-config-standard": "~24.0.0",
         "stylelint-prettier": "^2.0.0",
-        "typescript": "~4.1.3",
-        "ts-jest": "^26.0.0"
+        "ts-jest": "^26.0.0",
+        "typescript": "~4.1.3"
     },
     "resolutions": {
         "@lumino/coreutils": "^1.11.0",
@@ -93,9 +93,32 @@
         "access": "public"
     },
     "jupyterlab": {
+        "discovery": {
+            "server": {
+              "managers": [
+                "pip"
+              ],
+              "base": {
+                "name": "jupyterlab-download"
+              }
+            }
+          },
         "extension": true,
-        "outputDir": "jupyterlab-disable-download/labextension"
+        "outputDir": "jupyterlab-disable-download/labextension",
+        "schemaDir": "schema",
+        "webpackConfig": "webpack.config.js"
     },
+    "jupyter-releaser": {
+        "hooks": {
+          "before-build-npm": [
+            "python -m pip install jupyterlab~=3.1",
+            "jlpm"
+          ],
+          "before-build-python": [
+            "jlpm clean:all"
+          ]
+        }
+      },
     "eslintIgnore": [
         "node_modules",
         "dist",

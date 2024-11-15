@@ -1,9 +1,12 @@
 # jupyterlab-disable-download
 
-[![Github Actions Status](https://github.com/aristide/jupyterlab-disable-download/workflows/Build/badge.svg)](https://github.com/aristide/jupyterlab-disable-download/actions/workflows/build.yml)[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/aristide/jupyterlab-disable-download/main?urlpath=lab)
-disable data download from notebook
+[![Github Actions Status](https://github.com/aristide/jupyterlab-disable-download/workflows/Build/badge.svg)](https://github.com/aristide/jupyterlab-disable-download/actions/workflows/build.yml)
+[![PyPI version](https://badge.fury.io/py/jupyterlab-disable-download.svg)](https://badge.fury.io/py/jupyterlab-disable-download)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/aristide/jupyterlab-disable-download/main?urlpath=lab)
 
-Generate using: [Cookiecutter](https://github.com/jupyterlab/extension-cookiecutter-ts)
+Jupyterlab extension to disable data download from notebook
+
+Generated using: [Cookiecutter](https://github.com/jupyterlab/extension-cookiecutter-ts)
 
 ## Requirements
 

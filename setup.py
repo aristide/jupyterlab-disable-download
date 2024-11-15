@@ -9,40 +9,42 @@ from jupyter_packaging import (
     install_npm,
     ensure_targets,
     combine_commands,
-    skip_if_exists
+    skip_if_exists,
+    npm_builder,
+    wrap_installers
 )
 import setuptools
 
 HERE = Path(__file__).parent.resolve()
+# Get the package info from package.json
+pkg_json = json.loads((HERE / "package.json").read_bytes())
 
 # The name of the project
 name = "jupyterlab-disable-download"
 
 lab_path = (HERE / name / "labextension")
 
+
 # Representative files that should exist after a successful build
-jstargets = [
-    str(lab_path / "package.json"),
+data_files_spec = [
+    ("share/jupyter/labextensions/%s" % name, str(lab_path), "**"),
+    ("share/jupyter/labextensions/%s" % name, str(HERE), "install.json"),
+    ("share/jupyter/labextensions/%s" % name, str(HERE), "package.json"),
 ]
 
 package_data_spec = {
     name: ["*"],
 }
 
-org = "@aristogrambel/"
-
-labext_name = f"{org}jupyterlab-disable-download"
-
-data_files_spec = [
-    ("share/jupyter/labextensions/%s" % labext_name, str(lab_path), "**"),
-    ("share/jupyter/labextensions/%s" % labext_name, str(HERE), "install.json"),
-    ("share/jupyter/labextensions/%s" % labext_name, str(HERE), "package.json"),
-]
-
 cmdclass = create_cmdclass("jsdeps",
     package_data_spec=package_data_spec,
     data_files_spec=data_files_spec
 )
+
+# Representative files that should exist after a successful build
+jstargets = [
+    str(lab_path / "package.json"),
+]
 
 js_command = combine_commands(
     install_npm(HERE, build_cmd="build:prod", npm=["jlpm"]),
@@ -56,9 +58,6 @@ else:
     cmdclass["jsdeps"] = skip_if_exists(jstargets, js_command)
 
 long_description = (HERE / "README.md").read_text()
-
-# Get the package info from package.json
-pkg_json = json.loads((HERE / "package.json").read_bytes())
 
 setup_args = dict(
     name=name,
