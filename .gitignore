@@ -125,3 +125,5 @@ dmypy.json
 
 # OSX files
 .DS_Store
+notebooks/*
+!notebooks/.keep

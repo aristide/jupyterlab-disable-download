@@ -21,15 +21,15 @@ pkg_json = json.loads((HERE / "package.json").read_bytes())
 
 # The name of the project
 name = "jupyterlab-disable-download"
-
+labext_name = pkg_json["name"]
 lab_path = (HERE / name / "labextension")
 
 
 # Representative files that should exist after a successful build
 data_files_spec = [
-    ("share/jupyter/labextensions/%s" % name, str(lab_path), "**"),
-    ("share/jupyter/labextensions/%s" % name, str(HERE), "install.json"),
-    ("share/jupyter/labextensions/%s" % name, str(HERE), "package.json"),
+    ("share/jupyter/labextensions/%s" % labext_name, str(lab_path), "**"),
+    ("share/jupyter/labextensions/%s" % labext_name, str(HERE), "install.json"),
+    ("share/jupyter/labextensions/%s" % labext_name, str(HERE), "package.json"),
 ]
 
 package_data_spec = {
