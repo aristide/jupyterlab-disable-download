@@ -18,7 +18,9 @@
         "strict": true,
         "strictNullChecks": true,
         "target": "ES2018",
-        "types": ["jest"]
+        "types": ["jest", "node", "codemirror"],
+        "skipLibCheck": true
     },
-    "include": ["src/*"]
+    "include": ["src/**/*"],
+    "exclude": ["src/**/*.test.ts"]
 }

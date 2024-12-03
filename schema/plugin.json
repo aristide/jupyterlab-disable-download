@@ -1,8 +1,8 @@
 {
-  "jupyter.lab.shortcuts": [],
-  "title": "jupyterlab-disable-download",
-  "description": "jupyterlab-disable-download settings.",
-  "type": "object",
-  "properties": {},
-  "additionalProperties": false
+    "jupyter.lab.shortcuts": [],
+    "title": "jupyterlab-disable-download",
+    "description": "jupyterlab-disable-download settings.",
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
 }

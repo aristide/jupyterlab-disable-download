@@ -1,6 +1,6 @@
 {
     "name": "jupyterlab-disable-download",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "description": "disable data download from notebook",
     "keywords": [
         "jupyter",
@@ -49,20 +49,40 @@
         "prettier:check": "jlpm prettier:base --check",
         "stylelint": "jlpm stylelint:check --fix",
         "stylelint:check": "stylelint --cache \"style/**/*.css\"",
-        "test": "jest --coverage",
+        "test": "jest --coverage --passWithNoTests",
         "watch": "run-p watch:src watch:labextension",
         "watch:src": "tsc -w",
         "watch:labextension": "jupyter labextension watch ."
     },
     "dependencies": {
-        "@jupyterlab/application": "^3.1.0"
+        "@jupyterlab/application": "^3.1.0",
+        "@jupyterlab/apputils": "^3.1.0",
+        "@jupyterlab/cells": "^3.1.0",
+        "@jupyterlab/codemirror": "^3.1.0",
+        "@jupyterlab/csvviewer": "^3.1.0",
+        "@jupyterlab/docregistry": "^3.1.0",
+        "@jupyterlab/fileeditor": "^3.1.0",
+        "@jupyterlab/json-extension": "^3.1.0",
+        "@jupyterlab/launcher": "^3.1.0",
+        "@jupyterlab/notebook": "^3.1.0",
+        "@jupyterlab/outputarea": "^3.1.0",
+        "@jupyterlab/pdf-extension": "^3.1.0",
+        "@jupyterlab/rendermime-interfaces": "^3.1.0",
+        "@jupyterlab/shared-models": "^3.1.0",
+        "@lumino/algorithm": "^2.0.2",
+        "@lumino/disposable": "^1.10.2",
+        "@types/codemirror": "^0.0.109",
+        "codemirror": "^5.65.2",
+        "pdfjs-dist": "^4.9.124"
     },
     "devDependencies": {
         "@babel/core": "^7.0.0",
         "@babel/preset-env": "^7.0.0",
         "@jupyterlab/builder": "^3.1.0",
         "@jupyterlab/testutils": "^3.0.0",
+        "@testing-library/jest-dom": "^5.16.5",
         "@types/jest": "^26.0.0",
+        "@types/node": "^18.0.0",
         "@typescript-eslint/eslint-plugin": "^4.8.1",
         "@typescript-eslint/parser": "^4.8.1",
         "eslint": "^7.14.0",
@@ -95,14 +115,14 @@
     "jupyterlab": {
         "discovery": {
             "server": {
-              "managers": [
-                "pip"
-              ],
-              "base": {
-                "name": "jupyterlab-download"
-              }
+                "managers": [
+                    "pip"
+                ],
+                "base": {
+                    "name": "jupyterlab-disable-download"
+                }
             }
-          },
+        },
         "extension": true,
         "outputDir": "jupyterlab-disable-download/labextension",
         "schemaDir": "schema",
@@ -110,15 +130,15 @@
     },
     "jupyter-releaser": {
         "hooks": {
-          "before-build-npm": [
-            "python -m pip install jupyterlab~=3.1",
-            "jlpm"
-          ],
-          "before-build-python": [
-            "jlpm clean:all"
-          ]
+            "before-build-npm": [
+                "python -m pip install jupyterlab~=3.1",
+                "jlpm"
+            ],
+            "before-build-python": [
+                "jlpm clean:all"
+            ]
         }
-      },
+    },
     "eslintIgnore": [
         "node_modules",
         "dist",
