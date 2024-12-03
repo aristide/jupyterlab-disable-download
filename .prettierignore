@@ -5,3 +5,4 @@ node_modules
 !/package.json
 jupyterlab-disable-download
 .venv
+coverage

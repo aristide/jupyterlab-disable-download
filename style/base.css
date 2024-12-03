@@ -13,14 +13,6 @@
     cursor: default !important;
 }
 
-.jp-RenderedJSON .container,
-.jp-RenderedJSON .container * {
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-
 .jp-HTMLViewer iframe,
 .jp-HTMLViewer iframe * {
     -webkit-user-select: none;
@@ -29,9 +21,10 @@
     user-select: none;
 }
 
-/*.jp-CodeMirrorEditor *{
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-} */
+.jp-RenderedJSON .container,
+.jp-RenderedJSON .container * {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
