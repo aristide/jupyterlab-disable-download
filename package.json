@@ -56,23 +56,11 @@
     },
     "dependencies": {
         "@jupyterlab/application": "^3.1.0",
-        "@jupyterlab/apputils": "^3.1.0",
-        "@jupyterlab/cells": "^3.1.0",
-        "@jupyterlab/codemirror": "^3.1.0",
         "@jupyterlab/csvviewer": "^3.1.0",
         "@jupyterlab/docregistry": "^3.1.0",
         "@jupyterlab/fileeditor": "^3.1.0",
-        "@jupyterlab/json-extension": "^3.1.0",
-        "@jupyterlab/launcher": "^3.1.0",
-        "@jupyterlab/notebook": "^3.1.0",
-        "@jupyterlab/outputarea": "^3.1.0",
-        "@jupyterlab/pdf-extension": "^3.1.0",
         "@jupyterlab/rendermime-interfaces": "^3.1.0",
-        "@jupyterlab/shared-models": "^3.1.0",
-        "@lumino/algorithm": "^2.0.2",
         "@lumino/disposable": "^1.10.2",
-        "@types/codemirror": "^0.0.109",
-        "codemirror": "^5.65.2",
         "pdfjs-dist": "^4.9.124"
     },
     "devDependencies": {

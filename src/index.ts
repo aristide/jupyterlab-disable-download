@@ -15,8 +15,6 @@ import { WidgetClassChecker } from './widget-class-checker';
 import { CSVViewerExtension } from './widgets/csvViewerExtension';
 import { DisposableDelegate, IDisposable } from '@lumino/disposable';
 import { FileEditor } from '@jupyterlab/fileeditor';
-import { ILauncher } from '@jupyterlab/launcher';
-import { ICommandPalette } from '@jupyterlab/apputils';
 import { HTMLViewerExtension } from './widgets/htmlViewerExtension';
 
 interface IMenuCommands {
@@ -31,9 +29,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
     autoStart: true,
     requires: [IDocumentManager, ILabShell],
     activate: (
-        app: JupyterFrontEnd,
-        launcher: ILauncher,
-        palette: ICommandPalette
+        app: JupyterFrontEnd
     ) => {
         // Disable Download button from ui interface
         app.restored.then(() => {
