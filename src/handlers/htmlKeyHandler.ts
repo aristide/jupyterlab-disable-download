@@ -4,14 +4,14 @@ import { IDisposable } from '@lumino/disposable';
  * Custom key handler for FileEditor content
  */
 export class HTMLElementKeyHandler implements IDisposable {
-    private name: String = '';
+    private name = '';
     private _disposed = false;
     private _iframe: HTMLIFrameElement | null = null;
     private _html: HTMLElement | null = null;
     private _boundHandleKeyEvent: (event: KeyboardEvent) => void;
 
     constructor(
-        name: String = 'HTML Element',
+        name = 'HTML Element',
         html: HTMLElement | null = null,
         iframe: HTMLIFrameElement | null = null
     ) {

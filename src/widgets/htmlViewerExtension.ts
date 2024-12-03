@@ -21,10 +21,7 @@ export class HTMLViewerExtension {
         }
     }
 
-    attachHtmlKeyHandler(
-        container: HTMLElement,
-        name: string = 'Html viewer'
-    ): void {
+    attachHtmlKeyHandler(container: HTMLElement, name = 'Html viewer'): void {
         const handler = new HTMLElementKeyHandler(name, container);
         this.handlers.push(handler);
     }

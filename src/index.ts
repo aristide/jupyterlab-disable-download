@@ -62,7 +62,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
         const shell = app.shell as ILabShell;
 
         shell.currentChanged.connect((_, args) => {
-            let widget: Widget | null = args.newValue;
+            const widget: Widget | null = args.newValue;
 
             if (widget && widget instanceof DocumentWidget) {
                 const content = widget.content;

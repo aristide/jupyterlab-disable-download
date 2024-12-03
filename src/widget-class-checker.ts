@@ -43,7 +43,9 @@ export class WidgetClassChecker {
     }
 
     static isHTMLViewer(widget: Widget | null): boolean {
-        if (!widget) return false;
+        if (!widget) {
+            return false;
+        }
         return this.hasClass(widget, WIDGET_CLASSES.HTML_VIEWER);
     }
 }
