@@ -4,9 +4,9 @@ import {
 } from '@jupyterlab/application';
 import { CommandRegistry } from '@lumino/commands';
 import { IDocumentManager } from '@jupyterlab/docmanager';
-import { DocumentWidget } from '@jupyterlab/docregistry';
+import { DocumentRegistry, DocumentWidget } from '@jupyterlab/docregistry';
 
-import { Widget } from '@lumino/widgets';
+import { PanelLayout, Widget } from '@lumino/widgets';
 import { ILabShell } from '@jupyterlab/application';
 
 import { CSVViewer } from '@jupyterlab/csvviewer';
@@ -16,9 +16,84 @@ import { CSVViewerExtension } from './widgets/csvViewerExtension';
 import { DisposableDelegate, IDisposable } from '@lumino/disposable';
 import { FileEditor } from '@jupyterlab/fileeditor';
 import { HTMLViewerExtension } from './widgets/htmlViewerExtension';
+import { IRenderMime } from '@jupyterlab/rendermime-interfaces';
+
+import * as pdfjsLib from 'pdfjs-dist';
+import * as pdfjsViewer from 'pdfjs-dist/web/pdf_viewer';
 
 interface IMenuCommands {
     _commands: { [index: string]: unknown };
+}
+
+// Configure pdf.js worker
+pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+
+class RestrictedPDFViewer extends Widget {
+    private _pdfViewer: pdfjsViewer.PDFViewer;
+    private _container: HTMLDivElement;
+
+    constructor(context: IDocumentManager.IContext) {
+        super();
+        this.addClass('jp-PDFViewer');
+
+        // Create container for PDF viewer
+        this._container = document.createElement('div');
+        this._container.className = 'pdfViewer';
+        this.node.appendChild(this._container);
+
+        // Prevent text selection and copying
+        this.node.addEventListener('selectstart', this._preventSelection);
+        this.node.addEventListener('copy', this._preventCopy);
+
+        // Disable context menu
+        this.node.addEventListener('contextmenu', this._preventContextMenu);
+
+        // Initialize PDF viewer
+        const eventBus = new pdfjsViewer.EventBus();
+        this._pdfViewer = new pdfjsViewer.PDFViewer({
+            container: this._container,
+            eventBus,
+            enhanceTextSelection: false
+        });
+
+        // Load PDF
+        this._loadPDF(context);
+    }
+
+    private _preventSelection(event: Event): void {
+        event.preventDefault();
+    }
+
+    private _preventCopy(event: ClipboardEvent): void {
+        event.preventDefault();
+    }
+
+    private _preventContextMenu(event: MouseEvent): void {
+        event.preventDefault();
+    }
+
+    private async _loadPDF(context: IDocumentManager.IContext): Promise<void> {
+        try {
+            const pdfData = await context.model.contentModel.getData();
+            const loadingTask = pdfjsLib.getDocument({ data: pdfData });
+            const pdfDocument = await loadingTask.promise;
+
+            this._pdfViewer.setDocument(pdfDocument);
+        } catch (error) {
+            console.error('Error loading PDF:', error);
+        }
+    }
+}
+
+class RestrictedPDFDocumentWidget extends DocumentWidget {
+    constructor(
+        options: DocumentWidget.IOptions & {
+            context: IDocumentManager.IContext;
+        }
+    ) {
+        const viewer = new RestrictedPDFViewer(options.context);
+        super({ ...options, content: viewer });
+    }
 }
 
 /**
@@ -27,10 +102,8 @@ interface IMenuCommands {
 const plugin: JupyterFrontEndPlugin<void> = {
     id: 'jupyterlab-disable-download:plugin',
     autoStart: true,
-    requires: [IDocumentManager, ILabShell],
-    activate: (
-        app: JupyterFrontEnd
-    ) => {
+    requires: [IDocumentManager],
+    activate: (app: JupyterFrontEnd) => {
         // Disable Download button from ui interface
         app.restored.then(() => {
             const itemsToRemove = [

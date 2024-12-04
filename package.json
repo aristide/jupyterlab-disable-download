@@ -71,6 +71,7 @@
         "@testing-library/jest-dom": "^5.16.5",
         "@types/jest": "^26.0.0",
         "@types/node": "^18.0.0",
+        "@types/pdfjs-dist": "^2.10.378",
         "@typescript-eslint/eslint-plugin": "^4.8.1",
         "@typescript-eslint/parser": "^4.8.1",
         "eslint": "^7.14.0",
