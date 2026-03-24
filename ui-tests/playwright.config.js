@@ -1,14 +1,20 @@
 /**
- * Configuration for Playwright using default from @jupyterlab/galata
+ * Configuration for Playwright
  */
-const baseConfig = require('@jupyterlab/galata/lib/playwright-config');
-
 module.exports = {
-    ...baseConfig,
+    timeout: 120 * 1000,
+    use: {
+        headless: true,
+        video: 'retain-on-failure'
+    },
     webServer: {
         command: 'jlpm start',
         url: 'http://localhost:8888/lab',
         timeout: 120 * 1000,
         reuseExistingServer: !process.env.CI
+    },
+    retries: 0,
+    expect: {
+        timeout: 5 * 1000
     }
 };
