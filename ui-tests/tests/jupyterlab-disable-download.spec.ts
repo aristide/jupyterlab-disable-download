@@ -19,10 +19,14 @@ test('should disable download and copy commands', async ({ page }) => {
     ];
 
     for (const cmd of disabledCommands) {
-        const result = await page.evaluate((id) => {
+        const result = await page.evaluate(id => {
             const app = (window as any).jupyterapp;
             if (!app || !app.commands.hasCommand(id)) {
-                return { hasCommand: false, isEnabled: false, isVisible: false };
+                return {
+                    hasCommand: false,
+                    isEnabled: false,
+                    isVisible: false
+                };
             }
             return {
                 hasCommand: true,
