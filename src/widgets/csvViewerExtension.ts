@@ -7,13 +7,16 @@ export class CSVViewerExtension {
     private handlers: IDisposable[] = [];
 
     attachKeyHandler(widget: CSVViewer): void {
-        // Access the grid through the protected method
+        // Access the grid through the private property
         const grid: DataGrid = widget['_grid'];
         if (grid) {
             const handler = new CsvCustomKeyHandler();
             grid.keyHandler = handler;
             this.handlers.push(handler);
-            //   console.log('Custom key handler attached to CSV viewer');
+        } else {
+            console.warn(
+                'jupyterlab-disable-download: CSVViewer._grid not found; key handler not attached'
+            );
         }
     }
 

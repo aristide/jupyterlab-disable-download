@@ -1,7 +1,7 @@
 import { DataGrid } from '@lumino/datagrid';
 import { IDisposable } from '@lumino/disposable';
 
-type KeyHandlerMethod = (grid: DataGrid, event: KeyboardEvent) => boolean;
+type KeyHandlerMethod = (grid: DataGrid, event: KeyboardEvent) => void;
 
 export class CsvCustomKeyHandler implements DataGrid.IKeyHandler, IDisposable {
     private _isDisposed = false;
@@ -34,30 +34,20 @@ export class CsvCustomKeyHandler implements DataGrid.IKeyHandler, IDisposable {
                 event.preventDefault();
                 event.stopPropagation();
                 console.log('Ctrl+C prevented in CSV/TSV viewer');
-                return false;
+                return;
             }
-            // console.log('CSV Viewer Key Event:', {
-            //   key: event.key,
-            //   code: event.code,
-            //   ctrlKey: event.ctrlKey,
-            //   altKey: event.altKey,
-            //   shiftKey: event.shiftKey
-            // });
-            return true;
         });
     }
 
-    onKeyDown(grid: DataGrid, event: KeyboardEvent): boolean {
+    onKeyDown(grid: DataGrid, event: KeyboardEvent): void {
         if (this._isDisposed) {
-            return false;
+            return;
         }
 
         const method = this._methods.get('default');
         if (method) {
-            return method(grid, event);
+            method(grid, event);
         }
-
-        return false;
     }
 
     addMethod(name: string, method: KeyHandlerMethod): void {

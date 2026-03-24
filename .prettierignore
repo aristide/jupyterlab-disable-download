@@ -6,3 +6,6 @@ node_modules
 jupyterlab-disable-download
 .venv
 coverage
+.claude
+.yarn
+.pnp.*

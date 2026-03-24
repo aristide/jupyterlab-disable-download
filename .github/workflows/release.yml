@@ -10,20 +10,20 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Base Setup
       uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
 
     - name: Install dependencies
-      run: python -m pip install -U wheel twine setuptools packaging jupyterlab-pygments==0.2.2 jupyterlab==3.6.6
+      run: python -m pip install -U hatchling hatch-jupyter-builder hatch-nodejs-version "jupyterlab>=4.0.0,<5"
 
     - name: Lint the extension
       run: |
         set -eux
         jlpm
         jlpm run lint:check
-    
+
     - name: Build the extension
       run: |
         set -eux
@@ -41,16 +41,16 @@ jobs:
         pip install build
         python -m build
         pip uninstall -y "jupyterlab-disable-download" jupyterlab
-  
+
     - name: upload python build artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: dist
         path: dist
         retention-days: 5
 
     - name: upload typescript build artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: lib
         path: lib
@@ -65,18 +65,18 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Base Setup
         uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
 
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: dist
           path: dist
 
-      - name: List artifacts 
+      - name: List artifacts
         run: ls -R
 
       - name: Publish a Python distribution to PyPI
@@ -84,35 +84,3 @@ jobs:
         with:
           password: ${{ secrets.PYPI_TOKEN }}
           skip-existing: true
-
-
-  # publish-npm:
-  #   name: Publish npm package
-  #   needs: publish-python
-  #   runs-on: ubuntu-latest
-  #   permissions:
-  #     id-token: write
-
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v3
-
-  #     - name: Base Setup
-  #       uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
-
-  #     - uses: actions/setup-node@v3
-  #       with:
-  #         node-version: "18"
-  #         ref: ref/tags/${{ inputs.version }}
-
-  #     - name: Download build artifacts
-  #       uses: actions/download-artifact@v3
-
-  #     - run: yarn
-
-  #     - name: Publish labextension NPM
-  #       uses: JS-DevTools/npm-publish@v1
-  #       with:
-  #         token: ${{ secrets.NPM_TOKEN }}
-  #         strategy: "upgrade"
-  #         skip_existing: true

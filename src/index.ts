@@ -2,7 +2,6 @@ import {
     JupyterFrontEnd,
     JupyterFrontEndPlugin
 } from '@jupyterlab/application';
-import { CommandRegistry } from '@lumino/commands';
 import { IDocumentManager } from '@jupyterlab/docmanager';
 import { DocumentWidget } from '@jupyterlab/docregistry';
 
@@ -17,10 +16,6 @@ import { DisposableDelegate, IDisposable } from '@lumino/disposable';
 import { FileEditor } from '@jupyterlab/fileeditor';
 import { HTMLViewerExtension } from './widgets/htmlViewerExtension';
 
-interface IMenuCommands {
-    _commands: { [index: string]: unknown };
-}
-
 /**
  * Initialization data for the jupyterlab-disable-download extension.
  */
@@ -29,9 +24,9 @@ const plugin: JupyterFrontEndPlugin<void> = {
     autoStart: true,
     requires: [IDocumentManager],
     activate: (app: JupyterFrontEnd) => {
-        // Disable Download button from ui interface
+        // Disable download/copy/export commands
         app.restored.then(() => {
-            const itemsToRemove = [
+            const commandsToDisable = [
                 'notebook:copy-to-clipboard',
                 'filebrowser:download',
                 'docmanager:download',
@@ -40,12 +35,29 @@ const plugin: JupyterFrontEndPlugin<void> = {
                 'fileeditor:copy',
                 'fileeditor:cut'
             ];
-            const commands = <IMenuCommands>(
-                (<CommandRegistry | IMenuCommands>app.commands)
-            );
-            app.commands;
-            itemsToRemove.forEach(item => {
-                delete commands._commands[item];
+
+            // In Lumino 2, _commands is a private Map<string, ICommand>.
+            // We must remove the existing command before re-adding as a
+            // disabled/hidden no-op, since addCommand throws on duplicates.
+            const registry = app.commands as any;
+            const commandsMap: Map<string, unknown> | undefined =
+                registry._commands;
+
+            commandsToDisable.forEach(id => {
+                if (!app.commands.hasCommand(id)) {
+                    return;
+                }
+                if (commandsMap) {
+                    commandsMap.delete(id);
+                }
+                app.commands.addCommand(id, {
+                    execute: () => {
+                        /* no-op */
+                    },
+                    isEnabled: () => false,
+                    isVisible: () => false,
+                    label: id
+                });
             });
         });
 

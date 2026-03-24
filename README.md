@@ -10,7 +10,7 @@ Generated using: [Cookiecutter](https://github.com/jupyterlab/extension-cookiecu
 
 ## Requirements
 
--   JupyterLab >= 3.0
+- JupyterLab >= 4.0
 
 ## Install
 
@@ -44,7 +44,7 @@ The `jlpm` command is JupyterLab's pinned version of
 # Change directory to the jupyterlab-disable-download directory
 # create a virtual environment
 # install jupyterlab
-pip install jupyterlab==3.6.6
+pip install "jupyterlab>=4.0.0,<5"
 # Install package in development mode
 pip install -e "."
 # Link your development version of the extension with JupyterLab
